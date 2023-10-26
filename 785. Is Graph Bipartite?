@@ -1,0 +1,22 @@
+from collections import deque
+class Solution:
+    def isBipartite(self, graph):
+        states = [None] * len(graph)
+        seen = [False] * len(graph)
+        states[0] = False
+        q = deque()
+        for x in range(len(graph)):
+            q.append(x)
+            while q:
+                v = q.popleft()
+                if seen[v]: continue
+                seen[v] = True
+                for a in graph[v]:
+                    if states[a] == None:
+                        states[a] = not states[v]
+                        q.append(a)
+                    elif states[a] == states[v]:
+                        return False
+                    else:
+                        pass
+        return True
